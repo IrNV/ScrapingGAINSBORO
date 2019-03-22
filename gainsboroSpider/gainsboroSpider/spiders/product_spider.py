@@ -14,7 +14,7 @@ class ProductSpider(Spider):
         hxs = HtmlXPathSelector(response)
         sites = hxs.select('//div[@class="product--box box--minimal"]')
 
-        with open('test.csv', 'w', newline="") as fp:
+        with open('result.csv', 'w', newline="") as fp:
             writer = csv.writer(fp, delimiter=',')
             writer.writerow(["Product", "URL"])
 
