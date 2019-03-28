@@ -12,15 +12,15 @@ class ProductSpider(Spider):
 
     def parse(self, response):
         hxs = HtmlXPathSelector(response)
-        sites = hxs.select('//div[@class="product--box box--minimal"]')
+        products = hxs.select('//div[@class="product--box box--minimal"]')
 
         with open('result.csv', 'w', newline="") as fp:
             writer = csv.writer(fp, delimiter=',')
             writer.writerow(["Product", "URL"])
 
-            for site in sites:
-                title = site.select('.//a[@class="product--brandline"]/text()')[0].extract()
-                url = site.select('.//a[@class="product--brandline"]/@href')[0].extract()
+            for product in products:
+                title = product.select('.//a[@class="product--brandline"]/text()')[0].extract()
+                url = product.select('.//a[@class="product--brandline"]/@href')[0].extract()
 
                 title = title[1:-1:]  # delete quotes from beginning and ending
                 writer.writerows([(title, url)])
